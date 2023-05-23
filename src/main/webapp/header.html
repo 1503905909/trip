@@ -1,0 +1,99 @@
+<!--  start -->
+<script src="js/jquery-1.11.0.min.js"></script>
+<script src="js/getParameter.js"></script>
+<script>
+
+
+    //jquery代码....
+    $(function(){
+//获取用户信息
+        $.post('user/getUser',{},function(data){
+            if(data.flag){
+//说明用户已经登录将未登录状态进行隐藏
+                $(".login_out").hide();
+//将用户显示在页面上
+                $("#span_username").html(data.data.name)
+            }else{
+//说明用户未登录隐藏登录状态
+                $(".login").hide();
+            }
+        })
+    });
+
+
+    //分类加载
+    $.post('cate/list',{},function (data) {
+        if (data.flag){
+            var li="";
+            var pre='<li class="nav-active"><a href="index.html">首页</a> </li>';
+            li+=pre;
+            $.each(data.data,function (i,n) {
+                var cen='<li><a href="route_list.html?cid='+n.cid+'">'+n.cname+'</a></li>';
+                li+=cen;
+            })
+            var end='<li><a href=" favoriterank.html">收藏排行榜</a></li>';
+            li+=end;
+            $(".nav").append(li)
+        }else {
+            alert("分类加载失败");
+        }
+    });
+
+
+</script>
+<header id="header">
+        <div class="shortcut">
+             <!-- 未登录状态  -->
+            <div class="login_out">
+                <a href="login.html">登录</a>
+                <a href="register.html">注册</a>
+            </div>
+            <!-- 登录状态  -->
+            <div class="login">
+                <span id="span_username"></span>
+                <a href="myfavorite.html" class="collection">我的收藏</a>
+                <a href="javascript:location.href='user/exit';">退出</a>
+            </div>
+        </div>
+        <div class="header_wrap">
+            <div class="topbar">
+                <div class="logo">
+                    <a href="/trip"><img src="images/logo.jpg" alt=""></a>
+                </div>
+                <div class="search">
+                    <input name="" type="text" placeholder="请输入路线名称" class="search_input" autocomplete="off">
+                    <a href="javascript:;" class="search-button">搜索</a>
+                </div>
+                <div class="hottel">
+                    <div class="hot_pic">
+                        <img src="images/hot_tel.jpg" alt="">
+                    </div>
+                    <div class="hot_tel">
+                        <p class="hot_time">贵宾专线(9:00-6:00)</p>
+                        <p class="hot_num">18888888888</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </header>
+    <!-- 澶撮儴 end -->
+     <!-- 棣栭〉瀵艰埅 -->
+    <div class="navitem">
+       <ul class="nav">
+            <li class="nav-active"><a href="index.html">首页</a></li>
+            <li><a href="route_list.html">门票</a></li>
+            <li><a href="route_list.html">酒店</a></li>
+            <li><a href="route_list.html">香港车票</a></li>
+            <li><a href="route_list.html">出境游</a></li>
+            <li><a href="route_list.html">国内游</a></li>
+            <li><a href="route_list.html">港澳游</a></li>
+            <li><a href="route_list.html">抱团定制</a></li>
+            <li><a href="route_list.html">全球自由行</a></li>
+            <li><a href="favoriterank.html">收藏排行榜</a></li>
+        </ul>
+    </div>
+
+
+
+    
